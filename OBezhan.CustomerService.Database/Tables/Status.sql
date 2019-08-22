@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Status]
+(
+	[Id] TINYINT NOT NULL,
+	[Name] NVARCHAR(16) NOT NULL,
+
+	CONSTRAINT [PL_Status] PRIMARY KEY CLUSTERED ([Id])
+)

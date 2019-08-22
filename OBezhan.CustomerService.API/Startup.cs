@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OBezhan.CustomerService.API.Infrastructure.Validation;
 using System.Reflection;
+using OBezhan.CustomerService.API.Data;
+using OBezhan.CustomerService.API.Infrastructure.Persistent;
 
 namespace OBezhan.CustomerService.API
 {
@@ -23,7 +25,8 @@ namespace OBezhan.CustomerService.API
         {
             services
                 .AddCustomMvc()
-                .AddMediatR(Assembly.GetEntryAssembly());
+                .AddCustomMediatr()
+                .AddCustomDbContext(_configuration);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -60,6 +63,20 @@ namespace OBezhan.CustomerService.API
             );
             builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>));
             return builder;
+        }
+
+        public static IServiceCollection AddCustomDbContext(this IServiceCollection serviceCollection, IConfiguration configuration)
+        {
+            serviceCollection.AddOptions();
+            serviceCollection.Configure<DatabaseOptions>(configuration.GetSection("Database"));
+            serviceCollection.AddDbContext<CustomersDbContext>();
+            return serviceCollection;
+        }
+
+        public static IServiceCollection AddCustomMediatr(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddMediatR(Assembly.GetEntryAssembly());
+            return serviceCollection;
         }
     }
 }

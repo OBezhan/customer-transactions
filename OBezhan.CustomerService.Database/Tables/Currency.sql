@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Currency]
+(
+	[Id] SMALLINT NOT NULL,
+	[Code] NVARCHAR(3) NOT NULL,
+	
+	CONSTRAINT [PK_Currency] PRIMARY KEY CLUSTERED ([Id])
+)
