@@ -65,6 +65,7 @@
   <ItemGroup>
     <Build Include="Tables\Currency.sql" />
     <Build Include="Tables\Customer.sql" />
+    <Build Include="OBezhan.CustomerService.Database_Create.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Status.sql" />
@@ -74,6 +75,7 @@
     <None Include="PostDeployment\Statuses.sql" />
     <None Include="PostDeployment\Currency.sql" />
     <None Include="PostDeployment\TestData\TestData.sql" />
+    <None Include="Dockerfile" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeployment\Init.sql" />
