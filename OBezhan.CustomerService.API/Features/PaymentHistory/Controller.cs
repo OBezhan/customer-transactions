@@ -14,7 +14,7 @@ namespace OBezhan.CustomerService.API.Features.PaymentHistory
             _mediator = mediator;
         }
 
-        [HttpGet("/customers/{id:long}")]
+        [HttpGet("/customers/{id:long?}")]
         public async Task<IActionResult> Get(Request request)
         {
             ServiceResponse<Response> serviceResponse = await _mediator.Send(request);
@@ -27,6 +27,7 @@ namespace OBezhan.CustomerService.API.Features.PaymentHistory
             {
                 StatusCode = (int)serviceResponse.StatusCode
             };
+            //return Ok(request);
         }
     }
 }

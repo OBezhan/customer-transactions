@@ -7,6 +7,9 @@ namespace OBezhan.CustomerService.API.Features.PaymentHistory
     public class Request : IRequest<ServiceResponse<Response>>
     {
         [FromRoute]
-        public long Id { get; set; }
+        public long? Id { get; set; }
+
+        [FromQuery]
+        public string Email { get; set; }
     }
 }

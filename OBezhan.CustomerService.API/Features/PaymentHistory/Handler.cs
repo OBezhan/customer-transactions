@@ -22,12 +22,23 @@ namespace OBezhan.CustomerService.API.Features.PaymentHistory
 
         public async Task<ServiceResponse<Response>> Handle(Request request, CancellationToken cancellationToken)
         {
-            Customer customer = await _dbContext.Customers
+            IQueryable<Customer> customers = _dbContext.Customers
                 .Include(t => t.Transactions).ThenInclude(t => t.Status)
                 .Include(t => t.Transactions).ThenInclude(t => t.Currency)
-                .AsNoTracking()
-                .SingleAsync(t => t.Id == request.Id, cancellationToken);
-                
+                .AsNoTracking();
+
+            if (request.Id != null)
+            {
+                customers = customers.Where(t => t.Id == request.Id.Value);
+            }
+
+            if (request.Email != null)
+            {
+                customers = customers.Where(t => t.Email == request.Email);
+            }
+
+            Customer customer = customers.Single();
+
             IEnumerable<ResponseTransaction> transactions = customer.Transactions.Select(t => new ResponseTransaction(t.Id, t.DateTimeUtc, t.Amount, t.Currency.Code, t.Status.Name));
             var response = new Response(customer.Id, customer.Name, customer.Email, customer.MobileNumber, transactions);
             return new ServiceResponse<Response>(response, HttpStatusCode.OK);
