@@ -30,7 +30,6 @@ namespace OBezhan.CustomerService.API.Features.PaymentHistory
             {
                 StatusCode = (int)serviceResponse.StatusCode
             };
-            //return Ok(request);
         }
     }
 }

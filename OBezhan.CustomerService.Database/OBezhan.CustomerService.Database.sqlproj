@@ -23,6 +23,7 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
+    <GenerateCreateScript>True</GenerateCreateScript>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -77,4 +78,7 @@
   <ItemGroup>
     <PostDeploy Include="PostDeployment\Init.sql" />
   </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>copy $(ProjectDir)$(OutputPath)OBezhan.CustomerService.Database_Create.sql $(ProjectDir)OBezhan.CustomerService.Database_Create.sql</PostBuildEvent>
+  </PropertyGroup>
 </Project>

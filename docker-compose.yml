@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  customers-api:
+    image: 'obezhan/customers-api'
+    build:
+      context: .
+      dockerfile: OBezhan.CustomerService.API/Dockerfile
+  customers-db:
+    image: 'obezhan/customers-db'
+    build:
+      context: .
+      dockerfile: OBezhan.CustomerService.Database/Dockerfile

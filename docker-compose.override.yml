@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  customers-api:
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      Database__ConnectionString: $CUSTOMERS_DB_CONNECTION_STRING
+    ports:
+      - "7510:80"
+  customers-db:
+    environment:
+      SA_PASSWORD: yourStrong(!)Password
+    ports:
+      - "1432:1433"
