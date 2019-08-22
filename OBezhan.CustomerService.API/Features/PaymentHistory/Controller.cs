@@ -14,7 +14,7 @@ namespace OBezhan.CustomerService.API.Features.PaymentHistory
             _mediator = mediator;
         }
 
-        [HttpGet("/customers/{id:long?}")]
+        [HttpGet("/customers/{Id:long?}")]
         [ProducesResponseType(typeof(Response), 200)]
         [ProducesResponseType(typeof(ErrorResponse), 400)]
         [ProducesResponseType(typeof(ErrorResponse), 404)]
