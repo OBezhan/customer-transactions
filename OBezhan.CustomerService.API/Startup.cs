@@ -9,6 +9,7 @@ using OBezhan.CustomerService.API.Infrastructure.Validation;
 using System.Reflection;
 using OBezhan.CustomerService.API.Data;
 using OBezhan.CustomerService.API.Infrastructure.Persistent;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace OBezhan.CustomerService.API
 {
@@ -26,7 +27,8 @@ namespace OBezhan.CustomerService.API
             services
                 .AddCustomMvc()
                 .AddCustomMediatr()
-                .AddCustomDbContext(_configuration);
+                .AddCustomDbContext(_configuration)
+                .AddCustomSwagger();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -37,6 +39,7 @@ namespace OBezhan.CustomerService.API
             }
 
             app.UseMvc();
+            app.UseCustomSwagger();
         }
     }
 
@@ -77,6 +80,26 @@ namespace OBezhan.CustomerService.API
         {
             serviceCollection.AddMediatR(Assembly.GetEntryAssembly());
             return serviceCollection;
+        }
+
+        public static IServiceCollection AddCustomSwagger(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddSwaggerGen(t =>
+            {
+                t.SwaggerDoc("v1", new Info
+                {
+                    Title = "Customers API",
+                    Version = "v1"
+                });
+            });
+            return serviceCollection;
+        }
+
+        public static IApplicationBuilder UseCustomSwagger(this IApplicationBuilder appBuilder)
+        {
+            appBuilder.UseSwagger();
+            appBuilder.UseSwaggerUI(t => { t.SwaggerEndpoint("/swagger/v1/swagger.json", "Customers API"); });
+            return appBuilder;
         }
     }
 }

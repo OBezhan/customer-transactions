@@ -15,6 +15,9 @@ namespace OBezhan.CustomerService.API.Features.PaymentHistory
         }
 
         [HttpGet("/customers/{id:long?}")]
+        [ProducesResponseType(typeof(Response), 200)]
+        [ProducesResponseType(typeof(ErrorResponse), 400)]
+        [ProducesResponseType(typeof(ErrorResponse), 404)]
         public async Task<IActionResult> Get(Request request)
         {
             ServiceResponse<Response> serviceResponse = await _mediator.Send(request);
